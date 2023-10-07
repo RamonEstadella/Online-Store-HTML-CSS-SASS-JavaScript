@@ -10,6 +10,7 @@ const propiedadColor = producto.querySelector('#propiedad-color');
 
 
 // THUMBS DEL PRODUCTO
+// La idea es cambiar la ruta de la foto cuando el usuario haga click.
 
 thumbs.addEventListener('click', (e) => {
     if(e.target.tagName === 'IMG') {
@@ -28,6 +29,7 @@ thumbs.addEventListener('click', (e) => {
 });
 
 // COLORES DEL PRODUCTO
+// La idea es cambiar la ruta de la foto cuando el usuario haga click.
 
 propiedadColor.addEventListener('click', (e) => {
     if (e.target.tagName === 'INPUT') {
