@@ -1,10 +1,12 @@
 // VARIABLES
+import data from './data/productos';
 const botonesAbrirCarrito = document.querySelectorAll('[data-accion="abrir-carrito"]');
 const botonesCerrarCarrito = document.querySelectorAll('[data-accion="cerrar-carrito"]');
 const ventanaCarrito = document.getElementById('carrito');
 const btnAgregarCarrito = document.getElementById('agregar-al-carrito');
 const producto = document.getElementById('producto');
 const carrito = []; // Aquí guardaremos los productos del carrito
+const formatearMoneda = new Intl.NumberFormat('es-ES', {style: 'currency', currency:'EUR'});
 
 /* 
 
@@ -30,6 +32,16 @@ const renderCarrito = () => { // Se ejecuta cuando abro el carrito
     
     // Iteramos sobre vada producto del carrito y lo mostramos
     carrito.forEach((productoCarrito) => { // Iteramos los elementos del Array Carrito
+
+        // Obtenemos el precio del archivo de producto.js
+        // Cuando el id del item del carrito sea el mismo que alguno de la lista
+        data.productos.forEach((productoBaseDatos) => {
+            if(productoBaseDatos.id === productoCarrito.id) {
+                productoCarrito.precio = productoBaseDatos.precio;
+            }
+        });
+
+        //Establecemos la ruta de la imagen
         let thumbSrc = producto.querySelectorAll('.producto__thumb-img')[0].src;
         if (productoCarrito.color === 'rojo') {
             thumbSrc = './img/thumbs/rojo.jpg';
@@ -65,7 +77,7 @@ const renderCarrito = () => { // Se ejecuta cuando abro el carrito
                     />
                 </svg>
             </button>
-            <p class="carrito__producto-precio">$500.00</p>
+            <p class="carrito__producto-precio">${formatearMoneda.format(productoCarrito.precio * productoCarrito.cantidad)}</p>
         </div>
         `;
 
@@ -118,14 +130,37 @@ btnAgregarCarrito.addEventListener('click', (e) => {
     const color = producto.querySelector('#propiedad-color input:checked').value;
     const tamaño = producto.querySelector('#propiedad-tamaño input:checked').value;
 
-    // Cada vez que se hace clic en el botón, se agrega un nuevo objeto con la 
-    // información del producto al arreglo "carrito".
+    if (carrito.length > 0) {
+        let productoEnCarrito = false;
 
-    carrito.push({
-        id: id,
-        nombre: nombre,
-        cantidad: cantidad,
-        color: color,
-        tamaño: tamaño,
-    });
+        carrito.forEach(item => {
+            if (item.id === id && item.nombre === nombre && item.color === color && item.tamaño === tamaño) {
+                item.cantidad += cantidad;
+                productoEnCarrito = true;
+            }
+        });
+
+        if(!productoEnCarrito) {
+            carrito.push({
+                id: id,
+                nombre: nombre,
+                cantidad: cantidad,
+                color: color,
+                tamaño: tamaño,
+            });
+        }
+
+    } else {
+        // Cada vez que se hace clic en el botón, se agrega un nuevo objeto con la 
+        // información del producto al arreglo "carrito".
+        carrito.push({
+            id: id,
+            nombre: nombre,
+            cantidad: cantidad,
+            color: color,
+            tamaño: tamaño,
+        });
+    }
+
+   
 })
