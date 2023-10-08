@@ -1,56 +1,3 @@
-'use strict';
-
-// VARIABLES
-const producto$1 = document.getElementById('producto');
-const productoImagen = producto$1.querySelector('.producto__imagen');
-const thumbs = producto$1.querySelector('.producto__thumbs');
-
-// Color
-const propiedadColor = producto$1.querySelector('#propiedad-color');
-
-// Cantidad
-const btnDisminuirCantidad = producto$1.querySelector('#disminuir-cantidad');
-const btnIncrementarCantidad = producto$1.querySelector('#incrementar-cantidad');
-const inputCantidad = producto$1.querySelector('#cantidad');
-
-
-// THUMBS DEL PRODUCTO
-// La idea es cambiar la ruta de la foto cuando el usuario haga click.
-thumbs.addEventListener('click', (e) => {
-    if(e.target.tagName === 'IMG') {
-        const imagenSrc = e.target.src;
-
-         // Obtenemos la posicion del ultimo /
-        const lastIndex = imagenSrc.lastIndexOf('/');
-
-        // Cortamos la cadena de texto para obtener solamente una parte
-        const nombreImagen = imagenSrc.substring(lastIndex + 1);
-
-        // Cambiamos la ruta de la imagen del producto
-        productoImagen.src = `./img/tennis/${nombreImagen}`;
-    }
-    
-});
-
-// COLORES DEL PRODUCTO
-// La idea es cambiar la ruta de la foto cuando el usuario haga click.
-propiedadColor.addEventListener('click', (e) => {
-    if (e.target.tagName === 'INPUT') {
-        productoImagen.src = `./img/tennis/${e.target.value}.jpg`;
-    }
-});
-
-// CANTIDAD DEL PRODUCTO
-btnIncrementarCantidad.addEventListener('click', (e) => {
-    inputCantidad.value = parseInt(inputCantidad.value) + 1;
-});
-
-btnDisminuirCantidad.addEventListener('click', (e) => {
-    if(parseInt(inputCantidad.value) > 1) {
-        inputCantidad.value = parseInt(inputCantidad.value) - 1;
-    }
-});
-
 // VARIABLES
 const botonesAbrirCarrito = document.querySelectorAll('[data-accion="abrir-carrito"]');
 const botonesCerrarCarrito = document.querySelectorAll('[data-accion="cerrar-carrito"]');
@@ -75,14 +22,14 @@ y se muestre en la pantalla del usuario de alguna manera.
 const renderCarrito = () => { // Se ejecuta cuando abro el carrito
     ventanaCarrito.classList.add('carrito--active');
     console.log(carrito);
-};
+}
 
 // ABRIR CARRITO
 botonesAbrirCarrito.forEach((boton) => {
     boton.addEventListener('click', (e) => {
         renderCarrito();
-    });
-});
+    })
+})
 
 // CERRAR CARRITO
 
@@ -92,8 +39,8 @@ botonesAbrirCarrito.forEach((boton) => {
 botonesCerrarCarrito.forEach((boton) => {
     boton.addEventListener('click', (e) => {
         ventanaCarrito.classList.remove('carrito--active');
-    });
-});
+    })
+})
 
 // BOTÓN DE AGREGAR AL CARRITO
 btnAgregarCarrito.addEventListener('click', (e) => {
@@ -110,4 +57,4 @@ btnAgregarCarrito.addEventListener('click', (e) => {
         color: color,
         tamaño: tamaño,
     });
-});
+})
