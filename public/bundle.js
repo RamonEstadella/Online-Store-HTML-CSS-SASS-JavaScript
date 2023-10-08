@@ -76,8 +76,12 @@ y se muestre en la pantalla del usuario de alguna manera.
 
 const renderCarrito = () => { // Se ejecuta cuando abro el carrito
     ventanaCarrito.classList.add('carrito--active');
+
+    // Eliminamos todos los productos anteriores para construir el carrito desde cero.
+    const productosAnteriores = ventanaCarrito.querySelectorAll('.carrito__producto');
+    productosAnteriores.forEach(producto => producto.remove());
     
-    
+    // Iteramos sobre vada producto del carrito y lo mostramos
     carrito.forEach((productoCarrito) => { // Iteramos los elementos del Array Carrito
         let thumbSrc = producto.querySelectorAll('.producto__thumb-img')[0].src;
         if (productoCarrito.color === 'rojo') {
